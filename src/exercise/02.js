@@ -35,9 +35,9 @@ const ToggleButton = ({on, toggle, ...props}) => (
   <Switch on={on} onClick={toggle} {...props} />
 )
 
-const allowedTypes = [ToggleOn, ToggleOff, ToggleButton]
+// const allowedTypes = [ToggleOn, ToggleOff, ToggleButton]
 
-const MyToggleButton = ({on, toggle, ...props}) => (on ? 'On here' : 'Off here')
+// const MyToggleButton = ({on, toggle, ...props}) => (on ? 'On here' : 'Off here')
 
 function App() {
   return (
@@ -47,7 +47,7 @@ function App() {
         <ToggleOff>The button is off</ToggleOff>
         <span>Hello</span>
         <ToggleButton />
-        <MyToggleButton />
+        {/* <MyToggleButton /> */}
       </Toggle>
     </div>
   )
