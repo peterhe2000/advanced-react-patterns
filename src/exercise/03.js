@@ -23,7 +23,11 @@ function Toggle({children}) {
 }
 
 function useToggle() {
-  return React.useContext(ToggleContext)
+  const context = React.useContext(ToggleContext)
+  if (context === undefined) {
+    throw new Error('useToggle must be used within a <Toggle />')
+  }
+  return context
 }
 
 // 🐨 we'll still get the children from props (as it's passed to us by the
