@@ -2,6 +2,7 @@
 // http://localhost:3000/isolated/exercise/06.js
 
 import * as React from 'react'
+import warning from 'warning'
 import {Switch} from '../switch'
 
 const callAll =
@@ -32,7 +33,9 @@ function useToggle({
   initialOn = false,
   reducer = toggleReducer,
   onChange,
-  on: controlledOn, // alias to controlledOn
+  on: controlledOn,
+  readOnly = false,
+  // alias to controlledOn
   // 🐨 add an `onChange` prop.
   // 🐨 add an `on` option here
   // 💰 you can alias it to `controlledOn` to avoid "variable shadowing."
@@ -43,6 +46,15 @@ function useToggle({
   // 💰 `controlledOn != null`
   const onIsControlled = controlledOn != null
   const on = onIsControlled ? controlledOn : state.on
+
+  const hasOnChange = Boolean(onChange)
+  React.useEffect(() => {
+    // warning(false, 'warning message') trigger warning message when 1st parameter is false.
+    warning(
+      !(!hasOnChange && onIsControlled && !readOnly),
+      `An \`on\` prop was provided to useToggle without an \`onChange\` handler. This will render a read-only toggle. If you want it to be mutable, use \`initialOn\`. Otherwise, set either \`onChange\` or \`readOnly\`.`,
+    )
+  }, [hasOnChange, onIsControlled, readOnly])
 
   // We want to call `onChange` any time we need to make a state change, but we
   // only want to call `dispatch` if `!onIsControlled` (otherwise we could get
